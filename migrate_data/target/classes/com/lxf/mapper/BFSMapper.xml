@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxf.mapper.BFSMapper">
+
+    <resultMap id="selectDbaObjectsMap" type="DbaObjects">
+        <result column="owner" property="owner"/>
+        <result column="object_name" property="objectName"/>
+        <result column="object_type" property="objectType"/>
+        <result column="object_id" property="objectId"/>
+    </resultMap>
+    <select id="selectDbaObjects" resultMap="selectDbaObjectsMap">
+        select d.owner,
+               d.object_name,
+               d.object_type,
+               d.object_id
+        from dba_objects d
+        where object_id = #{objectID}
+    </select>
+
+</mapper>

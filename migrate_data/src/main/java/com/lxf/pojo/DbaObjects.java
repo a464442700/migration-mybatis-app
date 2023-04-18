@@ -1,9 +1,9 @@
 package com.lxf.pojo;
 
-public class DBAObjects {
+public class DbaObjects {
     private String owner;
     private String objectName;
-    private String objecType;
+    private String objectType;
     private Integer objectId;
 
     public void setOwner(String owner) {
@@ -14,8 +14,8 @@ public class DBAObjects {
         this.objectName = objectName;
     }
 
-    public void setObjecType(String objecType) {
-        this.objecType = objecType;
+    public void setobjectType(String objectType) {
+        this.objectType = objectType;
     }
 
     public void setObjectId(Integer objectId) {
@@ -26,8 +26,8 @@ public class DBAObjects {
         return objectName;
     }
 
-    public String getObjecType() {
-        return objecType;
+    public String getobjectType() {
+        return objectType;
     }
 
     public Integer getObjectId() {
@@ -38,5 +38,13 @@ public class DBAObjects {
         return owner;
     }
 
-
+    @Override
+    public String toString() {
+        return "DbaObjects{" +
+                "owner='" + owner + '\'' +
+                ", objectName='" + objectName + '\'' +
+                ", objectType='" + objectType + '\'' +
+                ", objectId=" + objectId +
+                '}';
+    }
 }
