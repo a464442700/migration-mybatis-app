@@ -8,15 +8,36 @@
         <result column="owner" property="owner"/>
         <result column="object_name" property="objectName"/>
         <result column="object_type" property="objectType"/>
-        <result column="object_id" property="objectId"/>
     </resultMap>
+
+    <resultMap id="selecteAllDependenciesMap" type="DbaObjects">
+        <result column="referenced_owner" property="owner"/>
+        <result column="referenced_name" property="objectName"/>
+        <result column="referenced_type" property="objectType"/>
+    </resultMap>
+
     <select id="selectDbaObjects" resultMap="selectDbaObjectsMap">
         select d.owner,
                d.object_name,
-               d.object_type,
-               d.object_id
+               d.object_type
         from dba_objects d
         where object_id = #{objectID}
+    </select>
+    <select id="selecteAllDependencies" resultMap="selecteAllDependenciesMap">
+
+
+        select d.referenced_name,
+               d.referenced_owner,
+               case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end referenced_type
+        from dba_dependencies d
+        where d.name = #{objectName}
+          and d.owner = #{owner}
+          and d.type = #{objectType}
+          and d.referenced_owner not in ('SYS', 'PUBLIC')
+          and not (d.referenced_name = d.name
+            and d.owner = d.referenced_owner
+            and d.type = (case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end)
+            )
     </select>
 
 </mapper>

@@ -4,7 +4,12 @@ public class DbaObjects {
     private String owner;
     private String objectName;
     private String objectType;
-    private Integer objectId;
+
+    public void setObjectType(String objectType) {
+        this.objectType = objectType;
+    }
+
+
 
     public void setOwner(String owner) {
         this.owner = owner;
@@ -18,9 +23,6 @@ public class DbaObjects {
         this.objectType = objectType;
     }
 
-    public void setObjectId(Integer objectId) {
-        this.objectId = objectId;
-    }
 
     public String getObjectName() {
         return objectName;
@@ -30,9 +32,7 @@ public class DbaObjects {
         return objectType;
     }
 
-    public Integer getObjectId() {
-        return objectId;
-    }
+
 
     public String getOwner() {
         return owner;
@@ -44,7 +44,6 @@ public class DbaObjects {
                 "owner='" + owner + '\'' +
                 ", objectName='" + objectName + '\'' +
                 ", objectType='" + objectType + '\'' +
-                ", objectId=" + objectId +
                 '}';
     }
 }

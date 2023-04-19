@@ -3,10 +3,9 @@ package com.lxf.util;
 import java.util.Objects;
 
 public class Node {
-    public final String owner;//四个只读属性
-    public final String objectName;
-    public final String objecType;
-    public final Integer objectId;
+    public  String owner;//四个只读属性
+    public  String objectName;
+    public  String objectType;
     private Integer level=0;
     private String database;
 
@@ -27,16 +26,15 @@ public class Node {
     }
 
 
-    public Node(String owner, String objectName, String objecType, Integer objectId)
+    public Node(String owner, String objectName, String objectType)
     {
         this.owner = owner;
         this.objectName = objectName;
-        this.objecType = objecType;
-        this.objectId = objectId;
+        this.objectType = objectType;
     }
 
     public int hashCode() {
-        return Objects.hash(this.owner,  this.objectName,this.objecType ,  this.objectId );
+        return Objects.hash(this.owner,  this.objectName,this.objectType  );
     }
 
     @Override
@@ -57,11 +55,9 @@ public class Node {
                 Objects.equals(this.objectName, node.objectName) &&
                 this.objectName == node.objectName
                 &&
-                Objects.equals(this.objecType, node.objecType) &&
-                this.objecType == node.objecType
-                &&
-                Objects.equals(this.objectId, node.objectId) &&
-                this.objectId == node.objectId;
+                Objects.equals(this.objectType, node.objectType) &&
+                this.objectType == node.objectType;
+
     }
 
     @Override
@@ -69,8 +65,7 @@ public class Node {
         return "Node{" +
                 "owner='" + owner + '\'' +
                 ", objectName='" + objectName + '\'' +
-                ", objecType='" + objecType + '\'' +
-                ", objectId=" + objectId +
+                ", objectType='" + objectType + '\'' +
                 ", level=" + level +
                 '}';
     }
