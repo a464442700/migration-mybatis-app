@@ -32,7 +32,7 @@ public class Node {
         this.objectName = objectName;
         this.objectType = objectType;
     }
-
+    @Override
     public int hashCode() {
         return Objects.hash(this.owner,  this.objectName,this.objectType  );
     }
@@ -49,14 +49,14 @@ public class Node {
         Node node = (Node) obj;
 
         // 判断该类的两个属性是否相等
-        return  Objects.equals(this.owner, node.owner) &&
-                this.owner == node.owner
+        return  Objects.equals(this.owner, node.owner)
+               //  && this.owner == node.owner
                 &&
-                Objects.equals(this.objectName, node.objectName) &&
-                this.objectName == node.objectName
+                Objects.equals(this.objectName, node.objectName)
+               // && this.objectName == node.objectName
                 &&
-                Objects.equals(this.objectType, node.objectType) &&
-                this.objectType == node.objectType;
+                Objects.equals(this.objectType, node.objectType);
+              // && this.objectType == node.objectType;
 
     }
 

@@ -16,6 +16,15 @@
         <result column="referenced_type" property="objectType"/>
     </resultMap>
 
+
+    <resultMap id="selectPackageMap" type="package">
+        <result column="owner" property="owner"/>
+        <result column="name" property="name"/>
+        <result column="type" property="type"/>
+        <result column="line" property="line"/>
+        <result column="text" property="text"/>
+    </resultMap>
+
     <select id="selectDbaObjects" resultMap="selectDbaObjectsMap">
         select d.owner,
                d.object_name,
@@ -23,6 +32,7 @@
         from dba_objects d
         where object_id = #{objectID}
     </select>
+
     <select id="selecteAllDependencies" resultMap="selecteAllDependenciesMap">
 
 
@@ -31,8 +41,8 @@
                case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end referenced_type
         from dba_dependencies d
         where d.name = #{objectName}
-          and d.owner =   #{owner}
-          and d.type = (case #{objectType} when 'PACKAGE' then 'PACKAGE BODY' else #{objectType} end )
+          and d.owner = #{owner}
+          and d.type = (case #{objectType} when 'PACKAGE' then 'PACKAGE BODY' else #{objectType} end)
           and d.referenced_owner not in ('SYS', 'PUBLIC')
           and not (d.referenced_name = d.name
             and d.owner = d.referenced_owner
@@ -40,4 +50,18 @@
             )
     </select>
 
+    <select id="selectPackage" resultMap="selectPackageMap">
+        SELECT  d.owner,d.name,d.type,d.line,d.text FROM dba_source  D
+        WHERE D.NAME= #{objectName}
+          AND D.OWNER= #{owner}
+          AND D.TYPE='PACKAGE'
+        ORDER BY LINE
+    </select>
+    <select id="selectPackageBody" resultMap="selectPackageMap">
+        SELECT  d.owner,d.name,d.type,d.line,d.text FROM dba_source  D
+        WHERE D.NAME= #{objectName}
+          AND D.OWNER= #{owner}
+          AND D.TYPE='PACKAGE BODY'
+        ORDER BY LINE
+    </select>
 </mapper>
