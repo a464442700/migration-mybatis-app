@@ -17,6 +17,11 @@ public class BFS {
     private Node startNode;//广度优先搜索起点
     private Queue<Node> queue = new LinkedList<Node>();//辅助队列
     private Set<Node> set = new HashSet<Node>();//访问标记集合，防止带环图无限循环
+
+    public Stack<Node> getStack() {
+        return stack;
+    }
+
     private Stack<Node> stack = new Stack<Node>();//访问一个节点入栈，这样从栈弹出顺序就是编译顺序
 
     //该节点是否被访问
@@ -36,11 +41,13 @@ public class BFS {
 
 
     }
-    private getNeighbors(){
+    private  ArrayList<Node> getNeighbors(Node node){
         DependenciesDaoImpl d =new DependenciesDaoImpl();
-        Node node=new Node("APPS","CUX_TABLE","TABLE");
         ArrayList<Node>  nodes= d.findAllNeighborNode(node);
+        return nodes;
     }
+
+
 
     public void Traverse() {
         Node v;
@@ -50,7 +57,14 @@ public class BFS {
         while (!this.queue.isEmpty()) {
             v = this.queue.poll();//出队
             //开始访问所有v的子节点
-            vs=
+            for (Node u : getNeighbors(v) ){
+                if(!this.isVisited(u)){
+                    this.visited(u);
+                    this.queue.add(u);
+                }
+            }
+
+
 
         }
 

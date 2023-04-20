@@ -25,7 +25,7 @@ public class Node {
         this.level = parentNode.level+1;
     }
 
-
+    public Node(){}
     public Node(String owner, String objectName, String objectType)
     {
         this.owner = owner;

@@ -31,8 +31,8 @@
                case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end referenced_type
         from dba_dependencies d
         where d.name = #{objectName}
-          and d.owner = #{owner}
-          and d.type = #{objectType}
+          and d.owner =   #{owner}
+          and d.type = (case #{objectType} when 'PACKAGE' then 'PACKAGE BODY' else #{objectType} end )
           and d.referenced_owner not in ('SYS', 'PUBLIC')
           and not (d.referenced_name = d.name
             and d.owner = d.referenced_owner
