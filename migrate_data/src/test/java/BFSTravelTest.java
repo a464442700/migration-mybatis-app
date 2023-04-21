@@ -8,5 +8,7 @@ public class BFSTravelTest {
         bfs.Traverse();
         System.out.println(bfs.getStack());
         System.out.println(bfs.getSet());
+        System.out.println(bfs.getGraph());
     }
 }
+//React-Force-Graph

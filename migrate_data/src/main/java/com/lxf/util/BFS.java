@@ -9,13 +9,19 @@ public class BFS {
     public BFS() {
     }
 
+    public AdjacencyListGraph<Node> getGraph() {
+        return graph;
+    }
+
     public BFS(Node startNode) {
         this.startNode = startNode;
         this.queue = new LinkedList<Node>();
         this.set = new HashSet<Node>();
+        this.graph=new AdjacencyListGraph<Node>();
         this.init();
     }
 
+    private AdjacencyListGraph<Node> graph;
     private Node startNode;//广度优先搜索起点
     private Queue<Node> queue;//辅助队列
     private Set<Node> set;//访问标记集合，防止带环图无限循环
@@ -45,6 +51,7 @@ public class BFS {
     public void visited(Node node) {
         this.set.add(node);//写入集合
         this.stack.add(node);//入栈，作用是从栈弹出的一定是level最高的
+        this.graph.addVertex(node);
     }
 
     //初始化
@@ -68,7 +75,7 @@ public class BFS {
             v = this.queue.poll();//出队
             //开始访问所有v的子节点
             for (Node u : this.getNeighbors(v)) {
-                System.out.println(u.objectName);
+                this.graph.addSide(v,u);
 
                 if (!this.isVisited(u)) {
                     this.visited(u);//访问
