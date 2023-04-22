@@ -33,12 +33,12 @@
         where object_id = #{objectID}
     </select>
 
-    <select id="selecteAllDependencies" resultMap="selecteAllDependenciesMap">
+    <select id="selecteDirectDependencies" resultMap="selecteAllDependenciesMap">
 
 
         select d.referenced_name,
                d.referenced_owner,
-               case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end referenced_type
+               case d.referenced_type when 'PACKAGE BODY' then 'PACKAGE' else referenced_type end referenced_type
         from dba_dependencies d
         where d.name = #{objectName}
           and d.owner = #{owner}
@@ -50,18 +50,44 @@
             )
     </select>
 
+    <select id="selectIndexes" resultType="DbaObjects">
+
+        select d.owner "owner", d.index_name "objectName", d.index_type "objectType"
+        from dba_indexes d
+        where 1 = 1
+          AND D.TABLE_NAME = #{objectName}
+          AND D.TABLE_OWNER = #{owner}
+          AND D.TABLE_TYPE = #{objectType}
+
+
+    </select>
+
+
     <select id="selectPackage" resultMap="selectPackageMap">
-        SELECT  d.owner,d.name,d.type,d.line,d.text FROM dba_source  D
-        WHERE D.NAME= #{objectName}
-          AND D.OWNER= #{owner}
-          AND D.TYPE='PACKAGE'
+        SELECT d.owner, d.name, d.type, d.line, d.text
+        FROM dba_source D
+        WHERE D.NAME = #{objectName}
+          AND D.OWNER = #{owner}
+          AND D.TYPE = 'PACKAGE'
         ORDER BY LINE
     </select>
     <select id="selectPackageBody" resultMap="selectPackageMap">
-        SELECT  d.owner,d.name,d.type,d.line,d.text FROM dba_source  D
-        WHERE D.NAME= #{objectName}
-          AND D.OWNER= #{owner}
-          AND D.TYPE='PACKAGE BODY'
+        SELECT d.owner, d.name, d.type, d.line, d.text
+        FROM dba_source D
+        WHERE D.NAME = #{objectName}
+          AND D.OWNER = #{owner}
+          AND D.TYPE = 'PACKAGE BODY'
         ORDER BY LINE
+    </select>
+    <select id="selectSynonym" resultType="DbaObjects">
+        select d.owner       "owner",
+               d.synonym_name "objectName",
+               'SYNONYM'     "objectType"
+        from dba_synonyms d
+        where 1 = 1
+          AND D.TABLE_OWNER = #{owner}
+          AND D.TABLE_name = #{objectName}
+
+
     </select>
 </mapper>

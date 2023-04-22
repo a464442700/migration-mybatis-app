@@ -8,7 +8,7 @@ public class Node {
     public  String objectType;
     private Integer level=0;
     private String database;
-
+    private String dependence_type;
     public String getDatabase() {
         return database;
     }
@@ -21,6 +21,10 @@ public class Node {
         return level;
     }
 
+    public void setDependence_type(String dependence_type) {
+        this.dependence_type = dependence_type;
+    }
+
     public void setLevel(Node parentNode) {
         this.level = parentNode.level+1;
     }
@@ -31,6 +35,7 @@ public class Node {
         this.owner = owner;
         this.objectName = objectName;
         this.objectType = objectType;
+        this.dependence_type="Direct";//
     }
     @Override
     public int hashCode() {
@@ -67,6 +72,8 @@ public class Node {
                 ", objectName='" + objectName + '\'' +
                 ", objectType='" + objectType + '\'' +
                 ", level=" + level +
+                ", database='" + database + '\'' +
+                ", dependence_type='" + dependence_type + '\'' +
                 '}';
     }
 }
