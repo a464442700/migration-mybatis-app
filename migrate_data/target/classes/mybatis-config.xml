@@ -6,7 +6,9 @@
     <typeAliases>
         <package name="com.lxf.pojo"/>
     </typeAliases>
-
+    <plugins>
+        <plugin interceptor="com/lxf/dao/SessionInterceptor"/>
+    </plugins>
     <environments default="development">
 
         <environment id="development">
@@ -16,6 +18,7 @@
                 <property name="url" value="jdbc:oracle:thin:@47.99.191.156:1521:DUPDB"/>
                 <property name="username" value="appsquery"/>
                 <property name="password" value="appsquery"/>
+                <property name="poolMaximumActiveConnections" value="5" />
             </dataSource>
         </environment>
 
@@ -24,4 +27,5 @@
     <mappers>
         <mapper resource="com/lxf/mapper/BFSMapper.xml"/>
     </mappers>
+
 </configuration>

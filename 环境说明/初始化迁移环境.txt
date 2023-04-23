@@ -20,7 +20,7 @@ CACHE 10;
 create synonym apps.cux_table for cux.cux_table;
 create synonym apps.cux_table_s for cux.cux_table_s;
 insert into cux.cux_table(id ,name)values(apps.cux_table_s.nextval,'a');
-create view  apps.cux_table_v as select * from  apps.cux_table;
+create view  apps.cux_table_v as select * from  cux.cux_table;
 
 create or replace package cux_table_pvt is
 

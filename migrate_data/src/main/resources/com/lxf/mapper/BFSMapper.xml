@@ -48,6 +48,7 @@
             and d.owner = d.referenced_owner
             and d.type = (case d.referenced_type when 'PACKAGE' then 'PACKAGE BODY' else referenced_type end)
             )
+          and d.referenced_link_name is null
     </select>
 
     <select id="selectIndexes" resultType="DbaObjects">
@@ -80,9 +81,9 @@
         ORDER BY LINE
     </select>
     <select id="selectSynonym" resultType="DbaObjects">
-        select d.owner       "owner",
+        select d.owner        "owner",
                d.synonym_name "objectName",
-               'SYNONYM'     "objectType"
+               'SYNONYM'      "objectType"
         from dba_synonyms d
         where 1 = 1
           AND D.TABLE_OWNER = #{owner}
@@ -90,4 +91,32 @@
 
 
     </select>
+    <select id="selectDBlink" resultType="com.lxf.pojo.DbaObjects">
+
+        select do.owner "owner", do.object_type "objectType", do.object_name "objectName"
+        from dba_dependencies d,
+             dba_objects do
+        where d.name = #{objectName}
+          and d.owner = #{owner}
+          and do.object_type = 'DATABASE LINK'
+          and d.referenced_link_name is not null
+          and do.object_name = d.referenced_link_name
+        group by do.owner, do.object_type, do.object_name
+
+    </select>
+    <select id="selectTrigger" resultType="com.lxf.pojo.DbaObjects">
+
+        select D.OWNER "owner", D.TRIGGER_NAME "objectName", 'TRIGGER' "objectType"
+        from dba_triggers d
+        where d.table_name = #{objectName}
+          AND D.TABLE_OWNER = #{owner}
+          AND D.BASE_OBJECT_TYPE = 'TABLE'
+
+
+    </select>
+
+    <select id="callSetIdentifier" statementType="CALLABLE" >
+        {call DBMS_SESSION.set_identifier(#{inParam, jdbcType=VARCHAR, mode=IN})}
+    </select>
+
 </mapper>
