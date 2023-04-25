@@ -63,7 +63,7 @@ public class DependenciesDaoImpl implements DependenciesDao {
 
     private void setIdentifier(SqlSession sqlSession) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
-        paramMap.put("inParam", "mybatis");
+        paramMap.put("clientID", "mybatis");
         sqlSession.selectOne("callSetIdentifier", paramMap);
 
     }
@@ -82,7 +82,7 @@ public class DependenciesDaoImpl implements DependenciesDao {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory sqlSessionFactory = (new SqlSessionFactoryBuilder()).build(inputStream);
             SqlSession sqlSession = sqlSessionFactory.openSession();
-            setIdentifier(sqlSession);
+           // setIdentifier(sqlSession);
             BFSMapper mapper = (BFSMapper) sqlSession.getMapper(BFSMapper.class);
 
 

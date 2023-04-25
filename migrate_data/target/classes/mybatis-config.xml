@@ -7,7 +7,7 @@
         <package name="com.lxf.pojo"/>
     </typeAliases>
     <plugins>
-        <plugin interceptor="com/lxf/dao/SessionInterceptor"/>
+        <plugin interceptor="com.lxf.dao.SessionInterceptor"/>
     </plugins>
     <environments default="development">
 

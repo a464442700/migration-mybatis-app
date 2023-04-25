@@ -116,7 +116,7 @@
     </select>
 
     <select id="callSetIdentifier" statementType="CALLABLE" >
-        {call DBMS_SESSION.set_identifier(#{inParam, jdbcType=VARCHAR, mode=IN})}
+        {call DBMS_SESSION.set_identifier(#{clientID, jdbcType=VARCHAR, mode=IN})}
     </select>
 
 </mapper>
