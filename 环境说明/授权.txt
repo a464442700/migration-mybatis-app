@@ -1,0 +1,2 @@
+grant execute on DBMS_METADATA to appsquery;
+grant execute on DBMS_CRYPTO to appsquery;

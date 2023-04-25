@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.sql.Clob;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -67,6 +68,12 @@ public class DependenciesDaoImpl implements DependenciesDao {
         sqlSession.selectOne("callSetIdentifier", paramMap);
 
     }
+  private void getDDL(SqlSession sqlSession){
+      Map<String, Object> parameterMap = new HashMap<>();
+      parameterMap.put("param1", "foo");
+      parameterMap.put("param2", "bar");
+
+  }
 
     @Override
     public ArrayList<Node> findAllNeighborNode(Node node) {

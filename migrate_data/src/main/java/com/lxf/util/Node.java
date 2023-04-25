@@ -1,5 +1,6 @@
 package com.lxf.util;
 
+import java.sql.Clob;
 import java.util.Objects;
 
 public class Node {
@@ -9,6 +10,12 @@ public class Node {
     private Integer level=0;
     private String database;
     private String dependence_type;
+    private Clob sourceCode;
+
+    public void setSourceCode(Clob sourceCode) {
+        this.sourceCode = sourceCode;
+    }
+
     public String getDatabase() {
         return database;
     }

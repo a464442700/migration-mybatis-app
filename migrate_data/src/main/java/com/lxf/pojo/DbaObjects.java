@@ -1,9 +1,13 @@
 package com.lxf.pojo;
 
+import java.sql.Clob;
+
 public class DbaObjects {
     private String owner;
     private String objectName;
     private String objectType;
+
+
 
     public void setObjectType(String objectType) {
         this.objectType = objectType;

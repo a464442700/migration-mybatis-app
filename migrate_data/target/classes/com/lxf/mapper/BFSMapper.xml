@@ -115,8 +115,19 @@
 
     </select>
 
-    <select id="callSetIdentifier" statementType="CALLABLE" >
+    <select id="callSetIdentifier" statementType="CALLABLE">
         {call DBMS_SESSION.set_identifier(#{clientID, jdbcType=VARCHAR, mode=IN})}
+    </select>
+    <select id="callGetDDL" statementType="CALLABLE" resultType="java.util.Map">
+        { #{result, mode=OUT, jdbcType=CLOB} = call DBMS_METADATA.GET_DDL(#{objectType, jdbcType=VARCHAR},
+                                                                          #{objectName, jdbcType=VARCHAR},
+                                                                          #{owner, jdbcType=VARCHAR}
+            )
+            }
     </select>
 
 </mapper>
+
+<!--        select   DBMS_CRYPTO.HASH(DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->
+<!--        name           =>'CUX_TEST_A',-->
+<!--        schema         =>'APPS' ) ,2) from  dual;-->
