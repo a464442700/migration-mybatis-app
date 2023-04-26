@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface SourceCodeDao {
     public void getSourcode(Node node) throws Exception;
-
+    public void getSourcodeHash(Node node) throws Exception;
 }

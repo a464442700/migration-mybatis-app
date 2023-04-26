@@ -53,7 +53,7 @@
 
     <select id="selectIndexes" resultType="DbaObjects">
 
-        select d.owner "owner", d.index_name "objectName", d.index_type "objectType"
+        select d.owner "owner", d.index_name "objectName", 'INDEX' "objectType"
         from dba_indexes d
         where 1 = 1
           AND D.TABLE_NAME = #{objectName}
@@ -119,15 +119,30 @@
         {call DBMS_SESSION.set_identifier(#{clientID, jdbcType=VARCHAR, mode=IN})}
     </select>
     <select id="callGetDDL" statementType="CALLABLE" resultType="java.util.Map">
-        { #{result, mode=OUT, jdbcType=CLOB} = call DBMS_METADATA.GET_DDL(#{objectType, jdbcType=VARCHAR},
-                                                                          #{objectName, jdbcType=VARCHAR},
-                                                                          #{owner, jdbcType=VARCHAR}
+        { #{sourceCode, mode=OUT, jdbcType=CLOB} = call DBMS_METADATA.GET_DDL(#{objectType, jdbcType=VARCHAR,mode=IN},
+                                                                              #{objectName, jdbcType=VARCHAR,mode=IN},
+                                                                              #{owner, jdbcType=VARCHAR,mode=IN}
             )
             }
     </select>
-
+    <select id="callGetHashCode" statementType="CALLABLE" resultType="java.util.Map">
+        { #{sourceCodeHash, mode=OUT, jdbcType=VARCHAR} = call DBMS_CRYPTO.HASH(
+                DBMS_METADATA.GET_DDL(#{objectType, jdbcType=VARCHAR,mode=IN},
+                                      #{objectName, jdbcType=VARCHAR,mode=IN},
+                                      #{owner, jdbcType=VARCHAR,mode=IN}
+                    ), 2)
+            }
+    </select>
 </mapper>
 
-<!--        select   DBMS_CRYPTO.HASH(DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->
-<!--        name           =>'CUX_TEST_A',-->
-<!--        schema         =>'APPS' ) ,2) from  dual;-->
+        <!--        select   DBMS_CRYPTO.HASH(DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->
+        <!--        name           =>'CUX_TEST_A',-->
+        <!--        schema         =>'APPS' ) ,2) from  dual;-->
+
+        <!--        select DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->
+        <!--        name           =>'CUX_TEST_A',-->
+        <!--        schema         =>'APPS' ) from dual;-->
+
+        <!--        select   DBMS_CRYPTO.HASH(DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->
+        <!--        name           =>'CUX_TEST_A',-->
+        <!--        schema         =>'APPS' ) ,2) from  dual;-->

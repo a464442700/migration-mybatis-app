@@ -8,6 +8,9 @@ public class StackTest {
         stack.add(1);
         stack.add(2);
         stack.add(3);
+        for (Integer data : stack) {
+           System.out.println(data);
+        }
         while (!stack.isEmpty()) {
             System.out.println(stack.pop());
 

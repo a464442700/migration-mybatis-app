@@ -9,6 +9,10 @@ public class BFSTravelTest {
         System.out.println(bfs.getStack());
         System.out.println(bfs.getSet());
         System.out.println(bfs.getGraph());
+//        for (Node n : bfs.getStack()) {
+//            System.out.println(n);
+//        }
+
     }
 }
 //React-Force-Graph

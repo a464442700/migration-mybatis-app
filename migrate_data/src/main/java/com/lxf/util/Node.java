@@ -10,10 +10,22 @@ public class Node {
     private Integer level=0;
     private String database;
     private String dependence_type;
-    private Clob sourceCode;
+    private String sourceCode;
+    private String sourceCodeHash;
+    public String getSourceCodeHash() {
+        return sourceCodeHash;
+    }
 
-    public void setSourceCode(Clob sourceCode) {
+    public void setSourceCodeHash(String sourceCodeHash) {
+        this.sourceCodeHash = sourceCodeHash;
+    }
+
+    public void setSourceCode(String sourceCode) {
         this.sourceCode = sourceCode;
+    }
+
+    public String getSourceCode() {
+        return sourceCode;
     }
 
     public String getDatabase() {
@@ -81,6 +93,7 @@ public class Node {
                 ", level=" + level +
                 ", database='" + database + '\'' +
                 ", dependence_type='" + dependence_type + '\'' +
+                ", sourceCodeHash='" + sourceCodeHash + '\'' +
                 '}';
     }
 }

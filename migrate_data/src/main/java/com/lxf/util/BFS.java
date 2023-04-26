@@ -2,6 +2,7 @@ package com.lxf.util;
 
 
 import com.lxf.dao.DependenciesDaoImpl;
+import com.lxf.dao.SourceCodeDaoImpl;
 
 import java.util.*;
 
@@ -47,11 +48,18 @@ public class BFS {
 
     }
 
+    private void setSourceCode(Node node){
+        SourceCodeDaoImpl s=new SourceCodeDaoImpl();
+        s.getSourcode(node);
+        s.getSourcodeHash(node);
+    }
+
     //设置访问标签
     public void visited(Node node) {
         this.set.add(node);//写入集合
         this.stack.add(node);//入栈，作用是从栈弹出的一定是level最高的
         this.graph.addVertex(node);
+        this.setSourceCode(node);
     }
 
     //初始化
