@@ -1,5 +1,6 @@
 import com.lxf.util.BFS;
 import com.lxf.util.Node;
+import com.lxf.util.file.FileStorageImpl;
 
 public class BFSTravelTest {
     public static void main(String[] args) {
@@ -12,6 +13,10 @@ public class BFSTravelTest {
 //        for (Node n : bfs.getStack()) {
 //            System.out.println(n);
 //        }
+        FileStorageImpl f=new FileStorageImpl();
+        for (Node n : bfs.getStack()) {
+            f.writeToFile(n);
+        }
 
     }
 }

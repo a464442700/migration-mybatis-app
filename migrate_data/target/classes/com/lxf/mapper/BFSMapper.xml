@@ -133,6 +133,9 @@
                     ), 2)
             }
     </select>
+    <select id="selectDataBase" resultType="java.lang.String">
+      select name from v$database
+    </select>
 </mapper>
 
         <!--        select   DBMS_CRYPTO.HASH(DBMS_METADATA.GET_DDL( object_type    => 'PACKAGE',-->

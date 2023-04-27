@@ -12,6 +12,7 @@ public class Node {
     private String dependence_type;
     private String sourceCode;
     private String sourceCodeHash;
+
     public String getSourceCodeHash() {
         return sourceCodeHash;
     }
@@ -46,15 +47,31 @@ public class Node {
 
     public void setLevel(Node parentNode) {
         this.level = parentNode.level+1;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Node{" +
+                "owner='" + owner + '\'' +
+                ", objectName='" + objectName + '\'' +
+                ", objectType='" + objectType + '\'' +
+                ", level=" + level +
+                ", database='" + database + '\'' +
+                ", dependence_type='" + dependence_type + '\'' +
+                ", sourceCodeHash='" + sourceCodeHash +'\''+
+
+                '}';
     }
 
     public Node(){}
-    public Node(String owner, String objectName, String objectType)
+    public Node(String owner, String objectName, String objectType )
     {
         this.owner = owner;
         this.objectName = objectName;
         this.objectType = objectType;
-        this.dependence_type="Direct";//
+        this.dependence_type="Direct";
+
     }
     @Override
     public int hashCode() {
@@ -84,16 +101,4 @@ public class Node {
 
     }
 
-    @Override
-    public String toString() {
-        return "Node{" +
-                "owner='" + owner + '\'' +
-                ", objectName='" + objectName + '\'' +
-                ", objectType='" + objectType + '\'' +
-                ", level=" + level +
-                ", database='" + database + '\'' +
-                ", dependence_type='" + dependence_type + '\'' +
-                ", sourceCodeHash='" + sourceCodeHash + '\'' +
-                '}';
-    }
 }

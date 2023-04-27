@@ -62,6 +62,11 @@ public class DependenciesDaoImpl implements DependenciesDao {
 
     }
 
+    private String getDatabase(BFSMapper mapper) {
+        String database = mapper.selectDataBase();
+        return database;
+    }
+
     private void setIdentifier(SqlSession sqlSession) {
         Map<String, Object> paramMap = new HashMap<String, Object>();
         paramMap.put("clientID", "mybatis");
@@ -69,6 +74,10 @@ public class DependenciesDaoImpl implements DependenciesDao {
 
     }
 
+
+    private void setAllNodeDatabase(List<Node> nodes, String database) {
+        nodes.forEach(node -> node.setDatabase(database));
+    }
 
     @Override
     public ArrayList<Node> findAllNeighborNode(Node node) {
@@ -84,27 +93,27 @@ public class DependenciesDaoImpl implements DependenciesDao {
             InputStream inputStream = Resources.getResourceAsStream(resource);
             SqlSessionFactory sqlSessionFactory = (new SqlSessionFactoryBuilder()).build(inputStream);
             SqlSession sqlSession = sqlSessionFactory.openSession();
-           // setIdentifier(sqlSession);
+            // setIdentifier(sqlSession);
             BFSMapper mapper = (BFSMapper) sqlSession.getMapper(BFSMapper.class);
+            String database = getDatabase(mapper);
+            node.setDatabase(database);
+            ArrayList<Node> allNeighborNode = new ArrayList<Node>();
 
 
-            ArrayList<Node> allAllNeighborNode = new ArrayList<Node>();
-
-
-            allAllNeighborNode.addAll(getAllNeighborNode(mapper, dbaobjMap, node));
+            allNeighborNode.addAll(getAllNeighborNode(mapper, dbaobjMap, node));
 
             if (node.objectType.equals("TABLE")) {
-                allAllNeighborNode.addAll(getIndexes(mapper, dbaobjMap, node));
-                allAllNeighborNode.addAll(getTriggers(mapper, dbaobjMap, node));
+                allNeighborNode.addAll(getIndexes(mapper, dbaobjMap, node));
+                allNeighborNode.addAll(getTriggers(mapper, dbaobjMap, node));
             }
-            allAllNeighborNode.addAll(getSynonym(mapper, dbaobjMap, node));
-            allAllNeighborNode.addAll(getDblinks(mapper, dbaobjMap, node));
+            allNeighborNode.addAll(getSynonym(mapper, dbaobjMap, node));
+            allNeighborNode.addAll(getDblinks(mapper, dbaobjMap, node));
 
 
             // sqlSession.close();
 
-
-            return allAllNeighborNode;
+            setAllNodeDatabase(allNeighborNode, database);
+            return allNeighborNode;
 
 
         } catch (IOException v) {
