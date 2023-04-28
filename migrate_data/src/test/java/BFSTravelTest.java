@@ -14,6 +14,7 @@ public class BFSTravelTest {
 //            System.out.println(n);
 //        }
         FileStorageImpl f=new FileStorageImpl();
+        f.dealNodes(bfs.getStack());
         for (Node n : bfs.getStack()) {
             f.writeToFile(n);
         }

@@ -4,14 +4,32 @@ import java.sql.Clob;
 import java.util.Objects;
 
 public class Node {
-    public  String owner;//四个只读属性
-    public  String objectName;
-    public  String objectType;
-    private Integer level=0;
+    public String owner;//四个只读属性
+    public String objectName;
+    public String objectType;
+    private Integer level = 0;
     private String database;
     private String dependence_type;
     private String sourceCode;
     private String sourceCodeHash;
+    private Node rootNode;
+    private Integer maxLevel;
+
+    public Integer getMaxLevel() {
+        return maxLevel;
+    }
+
+    public void setMaxLevel(Integer maxLevel) {
+        this.maxLevel = maxLevel;
+    }
+
+    public Node getRootNode() {
+        return rootNode;
+    }
+
+    public void setRootNode(Node rootNode) {
+        this.rootNode = rootNode;
+    }
 
     public String getSourceCodeHash() {
         return sourceCodeHash;
@@ -46,7 +64,17 @@ public class Node {
     }
 
     public void setLevel(Node parentNode) {
-        this.level = parentNode.level+1;
+        if (parentNode.objectType.equals("TABLE")
+                && (this.objectType.equals("INDEX")
+                || this.objectType.equals("TRIGGER")
+                || this.objectType.equals("SYNONYM")
+
+        )
+        ) {
+            this.level = parentNode.level - 1;
+        } else {
+            this.level = parentNode.level + 1;
+        }
 
     }
 
@@ -58,24 +86,25 @@ public class Node {
                 ", objectType='" + objectType + '\'' +
                 ", level=" + level +
                 ", database='" + database + '\'' +
-                ", dependence_type='" + dependence_type + '\'' +
-                ", sourceCodeHash='" + sourceCodeHash +'\''+
-
+                ", sourceCodeHash='" + sourceCodeHash + '\'' +
+                ", maxLevel=" + maxLevel +
                 '}';
     }
 
-    public Node(){}
-    public Node(String owner, String objectName, String objectType )
-    {
+    public Node() {
+    }
+
+    public Node(String owner, String objectName, String objectType) {
         this.owner = owner;
         this.objectName = objectName;
         this.objectType = objectType;
-        this.dependence_type="Direct";
+        this.dependence_type = "Direct";
 
     }
+
     @Override
     public int hashCode() {
-        return Objects.hash(this.owner,  this.objectName,this.objectType  );
+        return Objects.hash(this.owner, this.objectName, this.objectType);
     }
 
     @Override
@@ -90,14 +119,14 @@ public class Node {
         Node node = (Node) obj;
 
         // 判断该类的两个属性是否相等
-        return  Objects.equals(this.owner, node.owner)
-               //  && this.owner == node.owner
+        return Objects.equals(this.owner, node.owner)
+                //  && this.owner == node.owner
                 &&
                 Objects.equals(this.objectName, node.objectName)
-               // && this.objectName == node.objectName
+                // && this.objectName == node.objectName
                 &&
                 Objects.equals(this.objectType, node.objectType);
-              // && this.objectType == node.objectType;
+        // && this.objectType == node.objectType;
 
     }
 

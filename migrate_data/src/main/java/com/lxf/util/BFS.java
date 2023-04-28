@@ -37,6 +37,8 @@ public class BFS {
 
     private Stack<Node> stack = new Stack<Node>();//访问一个节点入栈，这样从栈弹出顺序就是编译顺序
 
+
+
     //该节点是否被访问
     public boolean isVisited(Node node) {
 //        System.out.print(node);

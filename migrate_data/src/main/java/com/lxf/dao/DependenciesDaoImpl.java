@@ -75,8 +75,17 @@ public class DependenciesDaoImpl implements DependenciesDao {
     }
 
 
+
+
     private void setAllNodeDatabase(List<Node> nodes, String database) {
-        nodes.forEach(node -> node.setDatabase(database));
+
+
+        nodes.forEach((node) -> {
+            node.setDatabase(database);
+
+        });
+
+
     }
 
     @Override
