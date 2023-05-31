@@ -34,7 +34,7 @@ public class FileStorageImpl implements FileStorage {
         Date date = new Date();
         // 设置日期格式
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH-mm-ss");
-        String fileName = "output/" + node.getRootNode().getDatabase() + '/' + "[" +
+        String fileName = "output/" + node.getRootNode().getDatabase() + '/' + "[" + node.getRootNode().getDatabase() + "]"+"[" +
                 node.getRootNode().owner + "." +
                 node.getRootNode().objectName + "." + node.getRootNode().objectType + "]" +
 
